@@ -1,11 +1,10 @@
 import argparse
-import socket
 import logging
+import socket
 
 import toml
 from request import HTTPRequest
 from response import HTTPResponse
-
 
 BUFF_SIZE = 4096
 CONFIG_FILENAME = "config.toml"
@@ -34,9 +33,7 @@ def send_sms(
     path = "/" + path
 
     auth = (username, password)
-    body = (
-        f'{{"sender": "{sender}", "recipient": "{recipient}", "message": "{message}"}}'
-    )
+    body = f'{{"sender": "{sender}", "recipient": "{recipient}", "message": "{message}"}}'
 
     request = HTTPRequest("POST", host, path, auth=auth, body=body)
 
@@ -60,12 +57,8 @@ def main() -> None:
     config = toml.load(CONFIG_FILENAME)
 
     parser = argparse.ArgumentParser(description="CLI for sending SMS")
-    parser.add_argument(
-        "--from", dest="sender", required=True, help="Sender phone number"
-    )
-    parser.add_argument(
-        "--to", dest="recipient", required=True, help="Recipient phone number"
-    )
+    parser.add_argument("--from", dest="sender", required=True, help="Sender phone number")
+    parser.add_argument("--to", dest="recipient", required=True, help="Recipient phone number")
     parser.add_argument("--message", required=True, help="SMS message text")
     args = parser.parse_args()
 

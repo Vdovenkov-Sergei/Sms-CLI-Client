@@ -9,9 +9,9 @@ class HTTPRequest:
         host: str,
         path: str,
         *,
-        auth: Optional[tuple[str, str]] = None,
+        auth: Optional[tuple[str, ...]] = None,
         headers: Optional[dict[str, str]] = None,
-        body: Optional[str] = "",
+        body: str = "",
     ):
         self.method = method
         self.host = host
@@ -19,7 +19,7 @@ class HTTPRequest:
         self.auth = auth or ()
         self.headers = headers or {}
         self.body = body
-        
+
     @property
     def request_line(self) -> str:
         return f"{self.method} {self.path} HTTP/1.1"
