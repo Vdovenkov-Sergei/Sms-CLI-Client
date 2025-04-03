@@ -1,8 +1,9 @@
-from http_client.request import Request
-from utils.console import print_sms_response
-from http_client.schemas import SMSMessage, PhoneNumber
-from utils.cli_parser import parse_arguments
 from config import config
+from http_client.request import Request
+from http_client.schemas import PhoneNumber, SMSMessage
+from utils.cli_parser import parse_arguments
+from utils.console import print_sms_response
+
 
 def main() -> None:
     api_url = config.get_value("api_url")

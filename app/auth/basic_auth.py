@@ -11,7 +11,7 @@ class HTTPBasicAuth:
         username, password = credentials
         if not isinstance(username, str) or not isinstance(password, str):
             raise ValueError("Both username and password must be strings")
-        
+
         encoded = base64.b64encode(f"{username}:{password}".encode()).decode()
         return f"Basic {encoded}"
 
@@ -20,7 +20,7 @@ class HTTPBasicAuth:
         if not auth_header.startswith("Basic "):
             raise ValueError("Authorization header should start with 'Basic '")
 
-        encoded_credentials = auth_header[len("Basic "):]
+        encoded_credentials = auth_header[len("Basic ") :]
         try:
             decoded_bytes = base64.b64decode(encoded_credentials)
             decoded_credentials = decoded_bytes.decode()

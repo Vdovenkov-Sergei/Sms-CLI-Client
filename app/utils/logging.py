@@ -9,4 +9,5 @@ def setup_logger(log_file: str = "sms-log.log") -> logging.Logger:
     )
     return logging.getLogger()
 
+
 logger = setup_logger()
