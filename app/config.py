@@ -23,6 +23,3 @@ class Config:
         if key not in self.config_data:
             raise ConfigError(f"Missing required config key: '{key}'")
         return self.config_data[key]
-
-
-config = Config()

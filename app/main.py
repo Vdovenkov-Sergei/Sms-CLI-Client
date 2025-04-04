@@ -1,4 +1,4 @@
-from app.config import config
+from app.config import Config
 from app.http_client.request import Request
 from app.http_client.schemas import SMSMessage
 from app.utils.cli_parser import parse_arguments
@@ -6,6 +6,7 @@ from app.utils.console import print_json_response
 
 
 def main() -> None:
+    config = Config("config.toml")
     api_url = config.get("api_url")
     username, password = config.get("username"), config.get("password")
     args = parse_arguments()

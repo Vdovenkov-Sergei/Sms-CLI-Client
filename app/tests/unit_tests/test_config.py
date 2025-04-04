@@ -35,15 +35,17 @@ class TestConfig:
         with pytest.raises(ConfigError, match="Error parsing the TOML file"):
             Config(str(config_file))
 
-    def test_get_existing_key(self) -> None:
+    def test_get_existing_key(self, tmp_path: Path) -> None:
         test_config = {"test_key": "test_value"}
+        config_file = tmp_path / "test.toml"
         with patch.object(Config, "load_config", return_value=test_config):
-            config = Config()
+            config = Config(str(config_file))
             assert config.get("test_key") == "test_value"
 
-    def test_get_missing_key(self) -> None:
+    def test_get_missing_key(self, tmp_path: Path) -> None:
         test_config = {}  # type: ignore
+        config_file = tmp_path / "test.toml"
         with patch.object(Config, "load_config", return_value=test_config):
-            config = Config()
+            config = Config(str(config_file))
             with pytest.raises(ConfigError, match="Missing required config key: 'missing_key'"):
                 config.get("missing_key")
