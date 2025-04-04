@@ -1,7 +1,8 @@
 from typing import Any
 
 import toml
-from exceptions import ConfigError
+
+from app.exceptions import ConfigError
 
 
 class Config:
@@ -16,7 +17,7 @@ class Config:
         except FileNotFoundError:
             raise ConfigError(f"Config file '{self.config_file}' not found.")
         except toml.TomlDecodeError:
-            raise ValueError(f"Error parsing the TOML file '{self.config_file}'.")
+            raise ConfigError(f"Error parsing the TOML file '{self.config_file}'.")
 
     def get(self, key: str) -> Any:
         if key not in self.config_data:

@@ -1,8 +1,8 @@
-from config import config
-from http_client.request import Request
-from http_client.schemas import PhoneNumber, SMSMessage
-from utils.cli_parser import parse_arguments
-from utils.console import print_response
+from app.config import config
+from app.http_client.request import Request
+from app.http_client.schemas import SMSMessage
+from app.utils.cli_parser import parse_arguments
+from app.utils.console import print_json_response
 
 
 def main() -> None:
@@ -10,9 +10,9 @@ def main() -> None:
     username, password = config.get("username"), config.get("password")
     args = parse_arguments()
 
-    sms_message = SMSMessage(PhoneNumber(args.sender), PhoneNumber(args.recipient), args.message)
+    sms_message = SMSMessage(args.sender, args.recipient, args.message)
     response = Request.post(api_url, auth=(username, password), body=sms_message)
-    print_response("SMS Response", response)
+    print_json_response("SMS Response", response)
 
 
 if __name__ == "__main__":
